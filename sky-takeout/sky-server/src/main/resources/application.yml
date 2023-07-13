@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: sky
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      package-to-scan: com.sgugo.skyserver.controller
+
+knife4j:
+  enable: true
+  basic:
+    enable: true
+    username: victor
+    password: victor
+  setting:
+    enable-footer-custom: true
+    footer-custom-content: "footer内容"
+
