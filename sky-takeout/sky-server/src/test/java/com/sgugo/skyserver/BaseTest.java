@@ -1,26 +1,42 @@
 package com.sgugo.skyserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
+import java.util.*;
 
 @SpringBootTest
 public class BaseTest {
 
     @Test
     void jsonTest() throws JsonProcessingException {
-//        Person person = new Person("Jinno",12,new Date());
-
-
         ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonString = objectMapper.writeValueAsString(person);
-//        System.out.println(jsonString);
+        Map<String, Object> map = new HashMap<String, Object>();
+        Person person = new Person("Jinno", 12, new Date());
 
-        String s = "{\"username\":\"Aaron\",\"age\":20,\"birthday\":1689155390494}";
-        Person person = objectMapper.readValue(s, Person.class);
-        System.out.println(person);
+        map.put("code",200);
+        map.put("msg","ok");
+        map.put("data",person);
+
+        String jsonString = objectMapper.writeValueAsString(map);
+
+        JsonNode jsonNode = objectMapper.readTree(jsonString);
+        JsonNode code = jsonNode.get("code");
+        int codeToInt = code.asInt();
+        System.out.println(codeToInt);
+
+        JsonNode data = jsonNode.get("data");
+        JsonNode username = data.get("username");
+        String usernameToString = username.asText();
+        System.out.println(usernameToString);
+
+//        Map<String, Object> mapResult = objectMapper.readValue(jsonString, Map.class);
+//
+//        System.out.println(jsonString);
+//        System.out.println(mapResult);
+
     }
 }
