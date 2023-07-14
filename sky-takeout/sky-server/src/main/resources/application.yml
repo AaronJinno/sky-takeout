@@ -10,7 +10,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      package-to-scan: com.sgugo.skyserver.controller
+      package-to-scan: com.sgugo.skyserver
 
 knife4j:
   enable: true
@@ -20,5 +20,15 @@ knife4j:
     password: victor
   setting:
     enable-footer-custom: true
-    footer-custom-content: "footer内容"
+    footer-custom-content: "cybor| [Victor](https://gitee.com/xiaoym/knife4j)"
+
+    swagger-model-name: "POJO"
+
+    enable-home-custom: true
+    home-custom-location: classpath:markdown/home.md
+    enable-debug: false
+  documents:
+    - group: 'default'
+      name: 项目说明
+      locations: classpath:markdown/*
 
