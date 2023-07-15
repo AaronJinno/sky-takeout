@@ -11,7 +11,6 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       package-to-scan: com.sgugo.skyserver
-
 knife4j:
   enable: true
   basic:
@@ -24,11 +23,31 @@ knife4j:
 
     swagger-model-name: "POJO"
 
-    enable-home-custom: true
+    enable-home-custom: false
     home-custom-location: classpath:markdown/home.md
-    enable-debug: false
+    enable-debug: true
   documents:
     - group: 'default'
       name: 项目说明
       locations: classpath:markdown/*
+
+logging:
+  level:
+    root: info
+  pattern:
+    console: "%d{yyyy-MM-dd} %-5level [%t] %c{1.}.%M(%L): %msg%n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
