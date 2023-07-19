@@ -2,7 +2,7 @@ spring:
   application:
     name: sky
 server:
-  port: 8080
+  port: 8001
 
 springdoc:
   swagger-ui:
