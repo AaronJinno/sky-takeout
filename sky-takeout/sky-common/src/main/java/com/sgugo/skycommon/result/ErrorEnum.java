@@ -1,4 +1,4 @@
-package com.sgugo.skyserver;
+package com.sgugo.skycommon.result;
 
 public enum ErrorEnum {
 

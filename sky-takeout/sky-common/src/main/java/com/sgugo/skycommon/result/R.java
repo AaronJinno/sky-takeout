@@ -1,9 +1,6 @@
 package com.sgugo.skycommon.result;
-
 import lombok.Data;
-
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * 后端统一返回结果
@@ -15,7 +12,7 @@ public class R<T> implements Serializable {
     private Integer code;
 
     //响应是否成功
-    private Boolean success;
+    private Boolean status;
 
     //响应信息
     private String message;
@@ -23,41 +20,43 @@ public class R<T> implements Serializable {
     // 响应的数据
     private T data;
 
-
-    /*
-    * 响应成功：无数据
-    * */
+    /**
+     * 响应成功：无data
+     */
     public static <T> R<T> success(){
         R<T> r = new R<>();
-        r.setCode(200);
-        r.setSuccess(true);
-        r.setMessage("响应成功");
+        r.setCode(ErrorEnum.SUCCESS.getCode());
+        r.setStatus(true);
+        r.setMessage(ErrorEnum.SUCCESS.getMessage());
+
         return r;
     }
 
 
-    /*
-    * 响应成功：返回单个数据
-    * */
-    public static <T> R<T> success( T obj){
+    /**
+     * 响应成功：返回data数据
+     */
+    public static <T> R<T> success(T data){
         R<T> r = new R<>();
-        r.setCode(200);
-        r.setSuccess(true);
-        r.setMessage("响应成功");
-        r.data = obj;
+        r.setCode(ErrorEnum.SUCCESS.getCode());
+        r.setStatus(true);
+        r.setMessage(ErrorEnum.SUCCESS.getMessage());
+        r.setData(data);
 
-        return null;
+        return r;
+
     }
 
-
     /**
-     * 响应成功: 进行分页
-     *
-     * 在返回通用数据，data模型的基础上，可以自定义添加map数据
+     * 响应失败
      */
+    public static <T> R<T> fail(ErrorEnum errorEnum){
+        R<T> r = new R<>();
+        r.setCode(errorEnum.getCode());
+        r.setStatus(false);
+        r.setMessage(errorEnum.getMessage());
 
-
-
-
+        return r;
+    }
 
 }
