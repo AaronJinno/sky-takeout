@@ -37,6 +37,19 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd} %-5level [%t] %c{1.}.%M(%L): %msg%n"
 
+sky:
+  jwt:
+    admin-secret: victor
+    admin-ttl: 120
+    admin-token-name: token
+
+    user-secret: dav
+    user-ttl: 120
+    user-token-name: authentication
+
+
+
+
 
 
 
