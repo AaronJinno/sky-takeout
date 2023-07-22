@@ -1,8 +1,18 @@
+server:
+  port: 8001
+
 spring:
   application:
     name: sky
-server:
-  port: 8001
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://159.75.225.162:3306/sky_take_out?serverTimezone=UTC
+      username: admin
+      password: aiface2023
+
 
 springdoc:
   swagger-ui:
@@ -47,6 +57,18 @@ sky:
     user-ttl: 120
     user-token-name: authentication
 
+mybatis:
+  # mapper映射文件所在的目录
+  mapper-locations: classpath:mapper/*.xml
+  # 返回值类型的别名：简化实体类的写法，不用写全类名了
+  type-aliases-package: com.sgugo.sky.entity
+  configuration:
+    # 是否开启驼峰映射
+    map-underscore-to-camel-case: true
+    # 控制台打印mapper执行的SQL语句，用于调试
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 延迟加载的全局开关，默认值false为不开启，实际开发中，大部分都是需要使用延迟加载的
+    lazy-loading-enabled: true
 
 
 
