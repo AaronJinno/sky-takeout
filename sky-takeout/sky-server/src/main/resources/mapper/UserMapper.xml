@@ -5,23 +5,23 @@
 
 <mapper namespace="com.sgugo.sky.mapper.UserMapper">
 
-    <!-- int insertUser();-->
-    <insert id="insertUser">
-        insert into user value(null,#{openid},#{name},#{phone},#{sex},#{idNumber},#{avatar},#{createTime})
-    </insert>
+    <!--List<User> getUserByLike(@Param("name") String name);-->
+    <select id="getUserByLike" resultType="user">
+        select * from user where name like "%"#{name}"%"
+    </select>
 
-    <!--int deleteUser();-->
-    <delete id="deleteUser">
-        delete from user where id=#{id}
+    <!--int deleteMore(@Param("dis") String ids);-->
+    <delete id="deleteMore">
+        delete from user where id in (${ids})
     </delete>
 
-    <!--int updateUser(User user);-->
-    <update id="updateUser">
-        update user set phone=#{phone} where id=#{id}
-    </update>
+    <!--void insertUser(User user);-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user values(null,#{openid},#{name},#{phone},#{sex},#{idNumber},#{avatar},#{createTime})
+    </insert>
 
-    <!--User getUserById(Long id);-->
-    <select id="getUserById" resultType="User">
-        select * from user where id = #{id}
+    <!--List<User> getUserByTable(@Param("tableName") String table);-->
+    <select id="getUserByTable" resultType="user">
+        select * from ${table}
     </select>
 </mapper>

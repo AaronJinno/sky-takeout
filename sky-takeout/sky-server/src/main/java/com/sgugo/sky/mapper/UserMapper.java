@@ -1,34 +1,26 @@
 package com.sgugo.sky.mapper;
 
 import com.sgugo.sky.entity.User;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
 
+    List<User> getUserByLike(@Param("name") String name);
 
     /**
-     * 添加一个用户
-     * @return 返回影响的行数，>0表示插入成功，0表示插入失败
+     * 通过id列表批量删除数据
+     * @param ids：字符串格式的id列表，id之间以逗号分割
+     * @return 返回删除成功的个数
      */
-    int insertUser(User user);
+    int deleteMore(@Param("ids") String ids);
 
+    void insertUser(User user);
 
-    /**
-     * 根据id删除一个用户
-     * @param id 用户的id
-     * @return 返回操作影响的行数，>0表示删除成功，0表示删除失败
-     */
-    int deleteUser(long id);
-
-    int updateUser(User user,long id);
-
-    /**
-     * 根据id 查询用户信息
-     * @param id 用户id
-     * @return 用户细腻系
-     */
-    User getUserById(Long id);
-
-
+    List<User> getUserByTable(@Param("table") String table);
 }

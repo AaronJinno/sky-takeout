@@ -3,7 +3,7 @@
 *.iml
 *.class
 *.log
-./logs
+logs/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
