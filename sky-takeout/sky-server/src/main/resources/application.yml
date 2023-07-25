@@ -30,9 +30,7 @@ knife4j:
   setting:
     enable-footer-custom: true
     footer-custom-content: "cybor| [Victor](https://gitee.com/xiaoym/knife4j)"
-
     swagger-model-name: "POJO"
-
     enable-home-custom: false
     home-custom-location: classpath:markdown/home.md
     enable-debug: true
@@ -41,11 +39,14 @@ knife4j:
       name: 项目说明
       locations: classpath:markdown/*
 
+
 logging:
-  level:
-    root: info
-  pattern:
-    console: "%d{yyyy-MM-dd} %-5level [%t] %c{1.}.%M(%L): %msg%n"
+  config: classpath:log4j2.xml
+#  level:
+#    root: info
+#  pattern:
+#    console: "%d{yyyy-MM-dd} %-5level [%t] %c{1.}.%M(%L): %msg%n"
+
 
 sky:
   jwt:
@@ -69,6 +70,7 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 延迟加载的全局开关，默认值false为不开启，实际开发中，大部分都是需要使用延迟加载的
     lazy-loading-enabled: true
+    cache-enabled: true
 
 
 

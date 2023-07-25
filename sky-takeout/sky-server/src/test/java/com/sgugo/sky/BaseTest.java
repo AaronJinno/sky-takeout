@@ -27,29 +27,11 @@ public class BaseTest {
     private UserMapper mapper;
 
     @Test
-    void getUserByLike(){
-        List<User> users = mapper.getUserByLike("Jin");
-        System.out.println(users);
-    }
+   void getUserById(){
+        User user1 = mapper.getUserById(7L);
+        System.out.println(user1);
 
-    @Test
-    void deleteMore(){
-        int i = mapper.deleteMore("5,6");
-        System.out.println(i);
-    }
-
-
-    @Test
-    void insertUser(){
-        User user = new User(null,null, "Mike", "911", null, null, null, null);
-        mapper.insertUser(user);
-
-        System.out.println(user.getId()); //打印的User信息已经有id了
-    }
-
-    @Test
-    void getUserByTable(){
-        List<User> users = mapper.getUserByTable("user");
-        System.out.println(users);
+        User user2 = mapper.getUserById(7L);
+        System.out.println(user2);
     }
 }

@@ -51,7 +51,7 @@
             <Policies>
                 <!--interval属性用来指定多久滚动一次，默认是1 hour-->
                 <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10KB"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
             </Policies>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始清理-->
             <DefaultRolloverStrategy max="30"/>
@@ -70,10 +70,10 @@
             <Policies>
                 <!--interval属性用来指定多久滚动一次，默认是1 hour-->
                 <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10MB"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
             </Policies>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
-            <DefaultRolloverStrategy max="15"/>
+            <DefaultRolloverStrategy max="30"/>
         </RollingFile>
 
         <!--========================================-->
@@ -89,10 +89,10 @@
             <Policies>
                 <!--interval属性用来指定多久滚动一次，默认是1 hour-->
                 <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10MB"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
             </Policies>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
-            <DefaultRolloverStrategy max="15"/>
+            <DefaultRolloverStrategy max="30"/>
         </RollingFile>
     </appenders>
 
@@ -128,6 +128,8 @@
         <Logger name="org.springframework" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
+        <!--druid数据源日志-->
+        <Logger name="druid.sql.Statement" level="warn"/>
     </loggers>
 
 </configuration>

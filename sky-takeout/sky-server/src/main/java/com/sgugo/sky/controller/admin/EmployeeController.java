@@ -2,6 +2,7 @@ package com.sgugo.sky.controller.admin;
 
 import com.sgugo.sky.result.R;
 import com.sgugo.sky.dto.EmployeeLoginDTO;
+import com.sgugo.sky.vo.EmployeeLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
@@ -19,11 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name="Admin")
 public class EmployeeController {
 
+    /**
+     * 员工登录接口
+     * @param employeeLoginDTO 员工登录的DTO
+     * @return 员工登录后的信息
+     */
     @Operation(description = "员工登录")
     @PostMapping("/login")
-    public R<Object> login(@RequestBody EmployeeLoginDTO employeeLoginDTO){
+    public R<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO){
         log.info("员工登录");
-        log.info(employeeLoginDTO);
         return R.success();
     }
 

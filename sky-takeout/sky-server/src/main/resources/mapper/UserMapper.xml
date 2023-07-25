@@ -4,24 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sgugo.sky.mapper.UserMapper">
-
-    <!--List<User> getUserByLike(@Param("name") String name);-->
-    <select id="getUserByLike" resultType="user">
-        select * from user where name like "%"#{name}"%"
-    </select>
-
-    <!--int deleteMore(@Param("dis") String ids);-->
-    <delete id="deleteMore">
-        delete from user where id in (${ids})
-    </delete>
-
-    <!--void insertUser(User user);-->
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
-        insert into user values(null,#{openid},#{name},#{phone},#{sex},#{idNumber},#{avatar},#{createTime})
-    </insert>
-
-    <!--List<User> getUserByTable(@Param("tableName") String table);-->
-    <select id="getUserByTable" resultType="user">
-        select * from ${table}
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
+    <!--User getUserById(@Param("id")Integer id);-->
+    <select id="getUserById" resultType="user">
+        select * from user where id=#{id}
     </select>
 </mapper>
