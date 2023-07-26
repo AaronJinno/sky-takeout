@@ -9,13 +9,10 @@ import java.io.Serializable;
 public class R<T> implements Serializable {
 
     // 响应码
-    private Integer code;
-
-    //响应是否成功
-    private Boolean status;
+    private Integer code; //编码：1成功，0和其它数字为失败
 
     //响应信息
-    private String message;
+    private String msg;
 
     // 响应的数据
     private T data;
@@ -25,9 +22,7 @@ public class R<T> implements Serializable {
      */
     public static <T> R<T> success(){
         R<T> r = new R<>();
-        r.setCode(ErrorEnum.SUCCESS.getCode());
-        r.setStatus(true);
-        r.setMessage(ErrorEnum.SUCCESS.getMessage());
+        r.setCode(1);
 
         return r;
     }
@@ -38,25 +33,18 @@ public class R<T> implements Serializable {
      */
     public static <T> R<T> success(T data){
         R<T> r = new R<>();
-        r.setCode(ErrorEnum.SUCCESS.getCode());
-        r.setStatus(true);
-        r.setMessage(ErrorEnum.SUCCESS.getMessage());
+        r.setCode(1);
         r.setData(data);
-
         return r;
-
     }
 
     /**
      * 响应失败
      */
-    public static <T> R<T> fail(ErrorEnum errorEnum){
+    public static <T> R<T> fail(String msg){
         R<T> r = new R<>();
-        r.setCode(errorEnum.getCode());
-        r.setStatus(false);
-        r.setMessage(errorEnum.getMessage());
-
+        r.setCode(0);
+        r.setMsg(msg);
         return r;
     }
-
 }

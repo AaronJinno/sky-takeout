@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8080
 
 spring:
   application:
@@ -24,9 +24,9 @@ springdoc:
 knife4j:
   enable: true
   basic:
-    enable: true
-    username: victor
-    password: victor
+#    enable: true
+#    username: victor
+#    password: victor
   setting:
     enable-footer-custom: true
     footer-custom-content: "cybor| [Victor](https://gitee.com/xiaoym/knife4j)"
@@ -42,10 +42,6 @@ knife4j:
 
 logging:
   config: classpath:log4j2.xml
-#  level:
-#    root: info
-#  pattern:
-#    console: "%d{yyyy-MM-dd} %-5level [%t] %c{1.}.%M(%L): %msg%n"
 
 
 sky:
