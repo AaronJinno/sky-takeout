@@ -41,7 +41,7 @@ public class R<T> implements Serializable {
     /**
      * 响应失败
      */
-    public static <T> R<T> fail(String msg){
+    public static <T> R<T> error(String msg){
         R<T> r = new R<>();
         r.setCode(0);
         r.setMsg(msg);
