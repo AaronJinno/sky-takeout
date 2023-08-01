@@ -1,6 +1,13 @@
 package com.sgugo.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sgugo.sky.constant.MessageConstant;
+import com.sgugo.sky.constant.PasswordConstant;
+import com.sgugo.sky.constant.StatusConstant;
+import com.sgugo.sky.context.BaseContext;
+import com.sgugo.sky.dto.EmployeeDTO;
+import com.sgugo.sky.dto.EmployeePageQueryDTO;
 import com.sgugo.sky.exception.AccountLockedException;
 import com.sgugo.sky.exception.AccountNotFoundException;
 import com.sgugo.sky.exception.PasswordErrorException;
@@ -9,8 +16,12 @@ import com.sgugo.sky.service.EmployeeService;
 import com.sgugo.sky.dto.EmployeeLoginDTO;
 import com.sgugo.sky.entity.Employee;
 import com.sgugo.sky.utils.EncryptMd5;
+import com.sgugo.sky.vo.PageResultVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -48,5 +59,51 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //3. 返回Employee对象给Controller
         return employee;
+    }
+
+    @Override
+    public void save(EmployeeDTO employeeDTO) {
+        // 1. 将DTO转为PO（entity），因为Dao层操作数据库要操作PO
+        Employee employee = new Employee();
+        // 将DTO中的数据拷贝到PO
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+        // 2. 为entity 增加额外数据
+        // 2.1 设置账号的状态，默认正常状态 1表示正常 0表示锁定
+        employee.setStatus(StatusConstant.ENABLE);
+        //2.2 设置默认密码，新增账号是采用默认密码的，默认密码需要进行加密
+        employee.setPassword(EncryptMd5.getMd5Pass(PasswordConstant.DEFAULT_PASSWORD));
+
+        //3. 设置当前记录创建人id和修改人id
+        //从ThreadLocal中获取当前登录用户的id
+        employee.setCreateUser(BaseContext.getId());
+        employee.setUpdateUser(BaseContext.getId());
+
+        //4. 调用Dao层，完成数据插入
+        employeeMapper.insert(employee);
+    }
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO DTO
+     * @return VO
+     */
+    @Override
+    public PageResultVO pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        //select * from employee limit 0,10
+
+        //调用分页插件进行分页查询
+        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+
+        //调用DAO进行分页查询，获取数据
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        // 获取分页信息
+        long total = page.getTotal();
+
+        List<Employee> records = page.getResult();
+
+        //返回分页VO
+        return new PageResultVO(total,records);
     }
 }

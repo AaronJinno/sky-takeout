@@ -15,8 +15,8 @@ public class BaseContext {
     /**
      * 获取当前线程中保存的id
      */
-    public static void getId(){
-        threadLocal.get();
+    public static Long getId(){
+        return threadLocal.get();
     }
 
     /**
