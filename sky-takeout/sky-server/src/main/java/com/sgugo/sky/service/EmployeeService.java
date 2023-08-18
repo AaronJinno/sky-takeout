@@ -30,4 +30,24 @@ public interface EmployeeService {
      */
     PageResultVO pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 启用禁用员工在账号
+     * @param status 员工状态，1启用，0禁用
+     * @param id 被操作的员工id
+     */
+    void startOrStop(Integer status, Long id);
+
+
+    /**
+     * 根据id查询员工
+     * @param id 员工的id
+     * @return 员工的信息
+     */
+    Employee getById(Long id);
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO DTO
+     */
+    void update(EmployeeDTO employeeDTO);
 }

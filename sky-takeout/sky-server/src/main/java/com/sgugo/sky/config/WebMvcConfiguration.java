@@ -2,12 +2,23 @@ package com.sgugo.sky.config;
 
 import com.sgugo.sky.interceptors.TokenAdminInterceptor;
 import com.sgugo.sky.interceptors.TokenUserInterceptors;
+import com.sgugo.sky.json.JacksonObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Configuration
 @Log4j2
@@ -51,5 +62,27 @@ public class WebMvcConfiguration  extends WebMvcConfigurationSupport {
         //API文档用到的 公共资源部分
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    /**
+     *  扩展Spring MVC框架的消息转化器
+     * @param converters 消息转换器
+     */
+    @Override
+    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        log.info("扩展消息转换器...");
+
+        //创建一个消息转换器对象
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+
+        //为创建的消息转换器添加一个对象转换器：JavaBean->JSON
+        converter.setObjectMapper(new JacksonObjectMapper());
+
+        //将消息转换器加入容器：注意将自定义的转换器优先级调高
+        converters.add(1,converter);
+
+        StringHttpMessageConverter converter1 = new StringHttpMessageConverter(StandardCharsets.UTF_8);
+        converters.add(0,converter1);
+
     }
 }

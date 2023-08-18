@@ -20,7 +20,8 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
-      package-to-scan: com.sgugo.skyserver
+      package-to-scan: com.sgugo.sky
+  default-flat-param-object: false
 knife4j:
   enable: true
   basic:
@@ -34,6 +35,7 @@ knife4j:
     enable-home-custom: false
     home-custom-location: classpath:markdown/home.md
     enable-debug: true
+    enable-dynamic-parameter: true
   documents:
     - group: 'default'
       name: 项目说明
@@ -47,11 +49,11 @@ logging:
 sky:
   jwt:
     admin-secret: victor
-    admin-ttl: 120
+    admin-ttl: 12000
     admin-token-name: token
 
     user-secret: dav
-    user-ttl: 120
+    user-ttl: 120000
     user-token-name: authentication
 
 mybatis:

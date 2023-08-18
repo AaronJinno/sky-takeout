@@ -5,7 +5,7 @@ package com.sgugo.sky.constant;
  */
 public class StatusConstant {
 
-    // 账号状态
+    // 状态
     public static final Integer ENABLE = 1; //启用
 
     public static final Integer DISABLE = 0; //禁用

@@ -21,6 +21,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -105,5 +106,47 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //返回分页VO
         return new PageResultVO(total,records);
+    }
+
+    /**
+     * 启用或禁用员工
+     * @param status 员工状态，1启用，0禁用
+     * @param id 被操作的员工id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 根据id查询员工
+     * @param id 员工的id
+     * @return 员工的信息
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        //不能显示明文密码，见密码设置为***
+        employee.setPassword("*****");
+        return employee;
+    }
+
+    /**
+     * 修改员工信息
+     * @param employeeDTO DTO
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getId());
+
+        employeeMapper.update(employee);
     }
 }
